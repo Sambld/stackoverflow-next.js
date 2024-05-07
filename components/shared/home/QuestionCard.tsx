@@ -1,8 +1,8 @@
-import React, { FC } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import RenderTag from "../navbar/RenderTag";
-import { Metric } from "../Metric";
+import React, { FC } from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
+import RenderTag from '../navbar/RenderTag'
+import { Metric } from '../Metric'
 
 interface QuestionCardProps {
   question: {
@@ -78,5 +78,5 @@ export const QuestionCard: FC<QuestionCardProps> = ({ question }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

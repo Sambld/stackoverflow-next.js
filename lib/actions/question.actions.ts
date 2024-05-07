@@ -1,75 +1,75 @@
-"use server";
+'use server'
 
-import Tag, { ITag } from "@/database/tag.model";
-import dbConnect from "../mongoose";
-import Question from "@/database/question.model";
-import { CreateQuestionParams, GetQuestionsParams } from "./shared.types";
-import User from "@/database/user.model";
-import { revalidatePath } from "next/cache";
+import Tag from '@/database/tag.model'
+import dbConnect from '../mongoose'
+import Question from '@/database/question.model'
+import { CreateQuestionParams, GetQuestionsParams } from './shared.types'
+import User from '@/database/user.model'
+import { revalidatePath } from 'next/cache'
 
 export const getQuestions = async ({
   page,
   filter,
   pageSize,
-  searchQuery,
+  searchQuery
 }: GetQuestionsParams) => {
   try {
-    dbConnect();
+    dbConnect()
 
     const questions = await Question.find()
-      .populate({ path: "tags", model: Tag })
-      .populate({ path: "author", model: User })
+      .populate({ path: 'tags', model: Tag })
+      .populate({ path: 'author', model: User })
       .sort({ createdAt: -1 })
       .limit(10)
-      .exec();
-    return questions;
+      .exec()
+    return questions
   } catch (error) {
-    console.log(error);
-    throw error;
+    console.log(error)
+    throw error
   }
-};
+}
 
 export const createQuestion = async ({
   title,
   content,
   tags,
   author,
-  path,
+  path
 }: CreateQuestionParams) => {
   try {
-    dbConnect();
+    dbConnect()
 
     // Create a new question
-    const tagDocuments = [];
+    const tagDocuments = []
 
     const question = await Question.create({
       title,
       content,
-      author,
-    });
+      author
+    })
 
     for (const tag of tags) {
       const tagDocument = await Tag.findOneAndUpdate(
         {
           name: {
-            $regex: new RegExp(`^${tag}$`, "i"),
-          },
+            $regex: new RegExp(`^${tag}$`, 'i')
+          }
         },
         {
           $setOnInsert: { name: tag },
           $push: {
-            questions: question._id,
-          },
+            questions: question._id
+          }
         },
-        { upsert: true, new: true },
-      );
-      tagDocuments.push(tagDocument._id);
+        { upsert: true, new: true }
+      )
+      tagDocuments.push(tagDocument._id)
     }
 
     await Question.findByIdAndUpdate(question._id, {
-      $push: { tags: { $each: tagDocuments } },
-    });
+      $push: { tags: { $each: tagDocuments } }
+    })
 
-    revalidatePath("/");
+    revalidatePath('/')
   } catch (error) {}
-};
+}

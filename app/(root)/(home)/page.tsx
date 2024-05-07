@@ -1,14 +1,12 @@
-import Filter from "@/components/shared/Filter";
-import LocalSearchBar from "@/components/shared/search/LocalSearchBar";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import React from "react";
-import { HomePageFilters } from "@/constants/Filters";
-import { HomeFilters } from "@/components/shared/home/HomeFilters";
-import RenderTag from "@/components/shared/navbar/RenderTag";
-import Image from "next/image";
-import { QuestionCard } from "@/components/shared/home/QuestionCard";
-import { getQuestions } from "@/lib/actions/question.actions";
+import Filter from '@/components/shared/Filter'
+import LocalSearchBar from '@/components/shared/search/LocalSearchBar'
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
+import React from 'react'
+import { HomePageFilters } from '@/constants/Filters'
+import { HomeFilters } from '@/components/shared/home/HomeFilters'
+import { QuestionCard } from '@/components/shared/home/QuestionCard'
+import { getQuestions } from '@/lib/actions/question.actions'
 
 // const questions = [
 //   {
@@ -110,8 +108,8 @@ import { getQuestions } from "@/lib/actions/question.actions";
 // ];
 
 const Home = async () => {
-  const questions = await getQuestions({});
-  console.log(questions);
+  const questions = await getQuestions({})
+  console.log(questions)
   return (
     <>
       <div className="flex  justify-between px-4 max-sm:flex-col-reverse ">
@@ -120,7 +118,7 @@ const Home = async () => {
         </h1>
         <Link href="/ask-question" className="flex justify-end max-sm:w-full">
           <Button
-            variant={"outline"}
+            variant={'outline'}
             className="primary-gradient rounded-none p-4 text-light-900 "
           >
             Ask a question
@@ -150,7 +148,7 @@ const Home = async () => {
         ))}
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

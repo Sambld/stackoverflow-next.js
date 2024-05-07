@@ -1,6 +1,6 @@
-import { Badge } from "@/components/ui/badge";
-import Link from "next/link";
-import React, { FC } from "react";
+import { Badge } from '@/components/ui/badge'
+import Link from 'next/link'
+import React, { FC } from 'react'
 
 type RenderTagType = {
   id?: number;
@@ -14,7 +14,7 @@ const RenderTag: FC<RenderTagType> = ({
   id,
   name,
   totalQuestions,
-  additionalContent,
+  additionalContent
 }) => {
   const tagContent = (
     <div className="border-1 flex justify-between">
@@ -26,8 +26,8 @@ const RenderTag: FC<RenderTagType> = ({
         {totalQuestions}
       </span>
     </div>
-  );
-  return <>{id ? <Link href={`/tag/${id}`}>{tagContent}</Link> : tagContent}</>;
-};
+  )
+  return <>{id ? <Link href={`/tag/${id}`}>{tagContent}</Link> : tagContent}</>
+}
 
-export default RenderTag;
+export default RenderTag

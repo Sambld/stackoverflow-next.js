@@ -1,13 +1,12 @@
-import React from "react";
+import React from 'react'
 import {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  SelectValue
+} from '@/components/ui/select'
 type FilterProps = {
   filters: {
     name: string;
@@ -17,7 +16,7 @@ type FilterProps = {
   className?: string;
 };
 
-function Filter({ filters, containerClassNames, className }: FilterProps) {
+function Filter ({ filters, containerClassNames, className }: FilterProps) {
   return (
     <div className={`${containerClassNames}`}>
       <Select>
@@ -39,7 +38,7 @@ function Filter({ filters, containerClassNames, className }: FilterProps) {
         </SelectContent>
       </Select>
     </div>
-  );
+  )
 }
 
-export default Filter;
+export default Filter

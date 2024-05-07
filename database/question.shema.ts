@@ -1,4 +1,4 @@
-import { Schema, model, models, Document } from "mongoose";
+import { Schema, model, models, Document } from 'mongoose'
 
 export interface QuestionDocument extends Document {
   title: string;
@@ -18,48 +18,48 @@ export const QuestionSchema = new Schema<QuestionDocument>({
     type: String,
     required: true,
     trim: true,
-    maxlength: 150,
+    maxlength: 150
   },
   content: {
     type: String,
     required: true,
     trim: true,
-    maxlength: 5000,
+    maxlength: 5000
   },
   tags: {
     type: [Schema.Types.ObjectId],
-    ref: "Tag",
-    required: true,
+    ref: 'Tag',
+    required: true
   },
   autor: {
     type: Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
+    ref: 'User',
+    required: true
   },
   views: {
     type: Number,
-    default: 0,
+    default: 0
   },
   upvotes: {
     type: [Schema.Types.ObjectId],
-    ref: "User",
-    default: [],
+    ref: 'User',
+    default: []
   },
   downvotes: {
     type: [Schema.Types.ObjectId],
-    ref: "User",
-    default: [],
+    ref: 'User',
+    default: []
   },
   answers: {
     type: [Schema.Types.ObjectId],
-    ref: "Answer",
-    default: [],
+    ref: 'Answer',
+    default: []
   },
   createdAt: {
     type: Date,
-    default: Date.now,
-  },
-});
+    default: Date.now
+  }
+})
 
 export default models.Question ||
-  model<QuestionDocument>("Question", QuestionSchema);
+  model<QuestionDocument>('Question', QuestionSchema)
