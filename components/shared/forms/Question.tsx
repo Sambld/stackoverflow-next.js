@@ -20,6 +20,7 @@ import {
 import { Input } from '@/components/ui/input'
 import RenderTag from '../navbar/RenderTag'
 import { createQuestion } from '@/lib/actions/question.actions'
+import { Textarea } from '@/components/ui/textarea'
 
 export const Question = ({ mongoUserId }: { mongoUserId: string }) => {
   const editorRef = useRef(null)
@@ -102,7 +103,7 @@ export const Question = ({ mongoUserId }: { mongoUserId: string }) => {
                     Explanation <span className="text-primary-500">*</span>
                   </FormLabel>
                   <FormControl>
-                    <Editor
+                    {/* <Editor
                       apiKey={process.env.NEXT_PUBLIC_TINY_EDITOR_API_KEY}
                       onInit={(evt, editor) => {
                         // @ts-ignore
@@ -140,7 +141,9 @@ export const Question = ({ mongoUserId }: { mongoUserId: string }) => {
                         skin: mode === 'dark' ? 'oxide-dark' : 'oxide',
                         content_css: mode === 'dark' ? 'dark' : 'light'
                       }}
-                    />
+                    /> */}
+                    <Textarea className='h-56 w-full' placeholder='what is your problem' {...field} />
+
                   </FormControl>
 
                   <FormMessage className="subtle-large text-red-500" />
