@@ -1,12 +1,14 @@
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
+  darkMode: 'class',
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}'
   ],
   theme: {
+    
     container: {
       center: true,
       padding: '2rem',
@@ -15,6 +17,9 @@ const config: Config = {
       }
     },
     extend: {
+      borderRadius: {
+        DEFFAULT: '0rem',
+      },
       colors: {
         primary: {
           500: '#FF7000',

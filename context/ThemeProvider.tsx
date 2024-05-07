@@ -1,49 +1,49 @@
-'use client'
+"use client"
 
-import React, {createContext, useContext, useEffect} from 'react'
+import React, { createContext, useContext, useState, useEffect } from "react"
 
-type ThemeContextType = {
-  theme: string
-  setTheme: (theme: string) => void
-
+interface ThemeContextType {
+  mode: string;
+  setMode: (mode: string) => void;
 }
 
-export const ThemeContext = createContext<ThemeContextType | undefined>({
-  theme: 'light',
-  setTheme: () => null
-})
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-const ThemeProvider = ({ children }: {children: React.ReactNode}) => {
-  const [theme, setTheme] = React.useState('')
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const [mode, setMode] = useState('');
+
+
   const handleThemeChange = () => {
-    if (theme === 'light') {
-      setTheme('dark')
-      document.documentElement.classList.remove('light')
-      document.documentElement.classList.add('dark')
-    }
-    if (theme === 'dark') {
-      setTheme('light')
-      document.documentElement.classList.remove('dark')
-      document.documentElement.classList.add('light')
+    if(
+      localStorage.theme === 'dark' ||
+      (!("theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      setMode('dark');
+      document.documentElement.classList.add('dark');
+    } else {
+      setMode('light');
+      document.documentElement.classList.remove('dark');
     }
   }
+  console.log(mode)
   useEffect(() => {
-    handleThemeChange()
-  }, [theme])
-  const value = { theme, setTheme }
+    handleThemeChange();
+  }, [mode])
+
   return (
-        <ThemeContext.Provider value={value}>
-            {children}
-        </ThemeContext.Provider>
+    <ThemeContext.Provider value={{ mode, setMode }}>
+      {children}
+    </ThemeContext.Provider>
   )
 }
 
-export default ThemeProvider
+export function useTheme() {
+  const context = useContext(ThemeContext);
 
-export const useTheme = () => {
-  const context = useContext(ThemeContext)
-  if (!context) {
+  if(context === undefined) {
     throw new Error('useTheme must be used within a ThemeProvider')
   }
-  return context
+
+  return context;
 }
