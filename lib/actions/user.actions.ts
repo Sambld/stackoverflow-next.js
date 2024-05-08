@@ -3,6 +3,7 @@ import User from '../../database/user.model'
 import {
   CreateUserParams,
   DeleteUserParams,
+  GetAllUsersParams,
   UpdateUserParams
 } from './shared.types'
 import { revalidatePath } from 'next/cache'
@@ -66,6 +67,22 @@ export const deleteUser = async (params: DeleteUserParams) => {
     // get user questions and delete them
     const userQuestions = Question.find({ userId: user._id }).distinct('_id')
     userQuestions.deleteMany({ author: user._id })
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}
+
+export const getAllUsers = async (params: GetAllUsersParams) => {
+  try {
+    dbConnect()
+    const { page = 1, pageSize = 10, searchQuery = '' } = params
+    const users = await User.find({ name: { $regex: searchQuery, $options: 'i' } })
+      .skip((page - 1) * pageSize)
+      .limit(pageSize)
+      .sort({ createdAt: -1 })
+
+    return users
   } catch (error) {
     console.log(error)
     throw error

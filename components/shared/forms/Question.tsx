@@ -1,12 +1,10 @@
 'use client'
-import React, { useRef } from 'react'
+import React from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Button } from '@/components/ui/button'
 import { questionSchema } from '@/lib/validations'
-import { Editor } from '@tinymce/tinymce-react'
-import { useTheme } from '@/context/ThemeProvider'
 import { CircleX } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import {
@@ -23,8 +21,6 @@ import { createQuestion } from '@/lib/actions/question.actions'
 import { Textarea } from '@/components/ui/textarea'
 
 export const Question = ({ mongoUserId }: { mongoUserId: string }) => {
-  const editorRef = useRef(null)
-  const { mode } = useTheme()
   const router = useRouter()
   const form = useForm<z.infer<typeof questionSchema>>({
     resolver: zodResolver(questionSchema),
