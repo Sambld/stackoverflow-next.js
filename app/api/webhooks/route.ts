@@ -56,13 +56,13 @@ export async function POST (req: Request) {
   const eventType = evt.type
   console.log(`Webhook with and ID of ${id} and type of ${eventType}`)
   if (eventType === 'user.created') {
-    const { id, username, first_name, last_name, image_url, email_addresses } =
+    const { id, first_name, last_name, image_url, email_addresses } =
       evt.data
 
     await createUser({
       clerkId: id,
       name: `${first_name} ${last_name}`,
-      username: username!,
+      username: `${first_name}.${last_name}`,
       email: email_addresses[0].email_address,
       picture: image_url
     })

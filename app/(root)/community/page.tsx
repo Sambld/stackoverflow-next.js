@@ -33,7 +33,7 @@ const Page = async () => {
       </div>
       <HomeFilters />
 
-      <div className='mt-5'>
+      <div className=' m-4 mt-6 flex flex-wrap  gap-5'>
         {
           users.length > 0
             ? users.map((User) => (
